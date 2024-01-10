@@ -8,22 +8,29 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity //determina que es una clase de persistencia
-@Table(name = "persons") //se pone para determinar de que tabla lo sacamos los datos, si no se pone por defecto va a ser con el nombre del objeto
-public class Person { //jpa usa el contructor vacio para crear la instancia, asi que siempre hay que tenerlo, pero igual podemos tener contructores con parametros
+@Entity //Determina que es una clase de persistencia para que lo maneje hibernate y jpa
+@Table(name = "persons") //Se pone para determinar de que tabla lo sacamos los datos, si no se pone por defecto va a ser con el nombre del objeto
+public class Person { //Jpa usa el contructor vacío para crear la instancia, así que siempre hay que tenerlo, pero igual podemos tener contructores con parámetros
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //identity para que lo genere de manera autoincremental
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Identity para que lo genere de manera autoincremental
     private Long id;
     @Column(name = "first_name")
     private String name;
     private String lastname;
-    @Column(name = "programming_language") //indica el nombre de la tabla a la que debe buscar en la base de datos, si no se pone va a buscar una columna que se llame igual al atributo
+    @Column(name = "programming_language") //Indica el nombre de la tabla a la que debe buscar en la base de datos, si no se pone va a buscar una columna que se llame igual al atributo
     private String programmingLanguage;
     
     
     
     public Person() {
+    }
+
+    
+
+    public Person(String name, String lastname) { //De esta manera se puede hacer una devolución personalizada con algunos campos de persona 
+        this.name = name;
+        this.lastname = lastname;
     }
 
     public Person(Long id, String name, String lastname, String programmingLanguage) {
