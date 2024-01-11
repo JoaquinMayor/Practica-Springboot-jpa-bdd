@@ -29,7 +29,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 	@Override
 	public void run(String... args) throws Exception { //Función en la cual se trabaja con las instancias y probar lo que hacemos
 		
-		whereIn();
+		update();
 	}
 
 	

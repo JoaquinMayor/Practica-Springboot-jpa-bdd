@@ -2,6 +2,7 @@ package com.joaquin.curso.springboot.jpa.springbootjpa.entities;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,13 +21,14 @@ public class Person { //Jpa usa el contructor vacío para crear la instancia, as
     private String lastname;
     @Column(name = "programming_language") //Indica el nombre de la tabla a la que debe buscar en la base de datos, si no se pone va a buscar una columna que se llame igual al atributo
     private String programmingLanguage;
-    
+    @Embedded//Con esto se puede obtener los datos de otra clase que se comparten entre varios entitys
+    private Audit audit = new Audit();
+   
     
     
     public Person() {
     }
 
-    
 
     public Person(String name, String lastname) { //De esta manera se puede hacer una devolución personalizada con algunos campos de persona 
         this.name = name;
@@ -39,6 +41,8 @@ public class Person { //Jpa usa el contructor vacío para crear la instancia, as
         this.lastname = lastname;
         this.programmingLanguage = programmingLanguage;
     }
+
+    
 
     public Long getId() {
         return id;
@@ -64,11 +68,14 @@ public class Person { //Jpa usa el contructor vacío para crear la instancia, as
     public void setProgrammingLanguage(String programmingLanguage) {
         this.programmingLanguage = programmingLanguage;
     }
+    
+    
+
 
     @Override
     public String toString() {
         return "id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage;
+                + programmingLanguage + ", createAt= " + audit.getCreatAt() + ", updateAt= "+ audit.getUpdateAt();
     }
 
     
