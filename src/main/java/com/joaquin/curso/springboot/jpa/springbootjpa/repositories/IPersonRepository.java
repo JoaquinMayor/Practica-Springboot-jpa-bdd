@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.joaquin.curso.springboot.jpa.springbootjpa.dto.PersonDto;
 import com.joaquin.curso.springboot.jpa.springbootjpa.entities.Person;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -93,7 +94,7 @@ public interface IPersonRepository extends CrudRepository<Person, Long> { //Se p
     Long getMaxPersonId();
 
     @Query("select p.name, length(p.name) from Person p") //Para saber la longitud de cada nombre
-    public List<Object[]> getPersonNameLength(); 
+    public List<Objects[]> getPersonNameLength(); 
 
     @Query("select min(length(p.name)) from Person p")
     public Integer getMinLengthName();

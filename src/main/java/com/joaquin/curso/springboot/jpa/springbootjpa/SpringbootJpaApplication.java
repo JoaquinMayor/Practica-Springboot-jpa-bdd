@@ -2,6 +2,7 @@ package com.joaquin.curso.springboot.jpa.springbootjpa;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -274,13 +275,13 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 		System.out.println("El id minimo es: " + min + " El id maximo es: " + max + " y el total de usuarios es: " + total);
 
 		System.out.println("Consulta con su nombre y su largo");
-		List<Object[]> regs = repository.getPersonNameLength();
+		List<Objects[]> regs = repository.getPersonNameLength();
 
-		regs.forEach(reg -> {
+		/*regs.forEach(reg -> {
 			String name = (String)reg[0];
 			Integer length = (Integer)reg[1];
 			System.out.println("name= " + name + ", length= " + length);
-		});
+		});*/
 
 		System.out.println("Consulta con el nombre mas corto");
 		Integer minNameLength = repository.getMinLengthName();
