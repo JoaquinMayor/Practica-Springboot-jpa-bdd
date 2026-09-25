@@ -7,7 +7,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
-@Embeddable //Con esto se puede mandar o trabajar con estos datos o metodos desde distinos entitys
+@Embeddable //Con esto se puede mandar o trabajar con estos datos o métodos desde distintos entitys
 public class Audit {
 
     @Column(name = "create_at")

@@ -18,7 +18,7 @@ import com.joaquin.curso.springboot.jpa.springbootjpa.entities.Person;
 import com.joaquin.curso.springboot.jpa.springbootjpa.repositories.IPersonRepository;
 
 @SpringBootApplication
-public class SpringbootJpaApplication implements CommandLineRunner{ //Se implementa porque no trabajamos con web sino con las base de datos
+public class SpringbootJpaApplication implements CommandLineRunner{ //Se implementa porque no trabajamos con web sino con la base de datos
 
 	@Autowired
 	private IPersonRepository repository;
@@ -35,7 +35,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 
 	
 
-	@Transactional //Se usa siempre que se maneja las bdd que altere la tabla o consultas
+	@Transactional //Se usa siempre que se manejan las bdd que altere la tabla o consultas
 	public void create(){
 		System.out.println("---------------Creando---------------");
 		Scanner scanner = new Scanner(System.in);
@@ -110,14 +110,14 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 	@Transactional(readOnly = true)
 	public void findOne(){
 
-		System.out.println("---------------Encontrando un usuario por diferente parámetros---------------");
+		System.out.println("---------------Encontrando un usuario por diferentes parámetros---------------");
 		Person person = null;
 		//Optional<Person> optionalPerson = repository.findById(8L);
 		//Optional<Person> optionalPerson = repository.findOne(2L);
 		Optional<Person> optionalPerson = repository.findByNameContaining("jo");
 		 if(optionalPerson.isPresent()){
 			person = optionalPerson.get();
-		 } //El  findById devuelve un optional entonces tenemos que llamar al metodo get() o el orElseThow()
+		 } //El  findById devuelve un optional entonces tenemos que llamar al método get() o el orElseThrow()
 		
 		 System.out.println(person);
 	}
@@ -201,7 +201,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 
 	@Transactional(readOnly = true)
 	public void personalizedQueriesMixPersonContructor(){
-		System.out.println("---------------Obteniendo lista de varios datos de las personas pero a partir del contructor de la clase Person---------------");
+		System.out.println("---------------Obteniendo lista de varios datos de las personas pero a partir del constructor de la clase Person---------------");
 		List<Person> personRegs = repository.findAllObjectPerson();
 
 		personRegs.forEach(reg ->{
@@ -272,7 +272,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 		Long max = repository.getMaxPersonId();
 		Long total = repository.getTotalPersons();
 
-		System.out.println("El id minimo es: " + min + " El id maximo es: " + max + " y el total de usuarios es: " + total);
+		System.out.println("El id mínimo es: " + min + " El id máximo es: " + max + " y el total de usuarios es: " + total);
 
 		System.out.println("Consulta con su nombre y su largo");
 		List<Objects[]> regs = repository.getPersonNameLength();
@@ -283,11 +283,11 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 			System.out.println("name= " + name + ", length= " + length);
 		});*/
 
-		System.out.println("Consulta con el nombre mas corto");
+		System.out.println("Consulta con el nombre más corto");
 		Integer minNameLength = repository.getMinLengthName();
 		System.out.println(minNameLength);
 
-		System.out.println("Consulta con el nombre mas largo");
+		System.out.println("Consulta con el nombre más largo");
 		Integer maxNameLength = repository.getMaxLengthName();
 		System.out.println(maxNameLength);
 
@@ -295,7 +295,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 
 	@Transactional(readOnly = true)
 	public void personalizedAgregation(){
-		System.out.println("---------------Obteniendo el id min, el max, la sum, la suma de todos los id y el promedio de cantidad de letras de los nombres de lo usuarios---------------");
+		System.out.println("---------------Obteniendo el id min, el max, la sum, la suma de todos los id y el promedio de cantidad de letras de los nombres de los usuarios---------------");
 		
 		Object[] resumeReg = (Object[])repository.getResumeAggregationFunction();
 
@@ -304,7 +304,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 
 	@Transactional(readOnly = true)
 	public void subQueries(){
-		System.out.println("---------------Obteniendo lista de nombres mas cortos con subqueries ---------------");
+		System.out.println("---------------Obteniendo lista de nombres más cortos con subqueries ---------------");
 		
 		List<Object[]> registers = repository.getShorterNames();
 		registers.forEach(reg -> {
@@ -317,13 +317,13 @@ public class SpringbootJpaApplication implements CommandLineRunner{ //Se impleme
 		System.out.println("---------------Obteniendo última persona registrada---------------");
 
 		if(optionalPerson.isPresent()){
-			System.out.println("Ultima persona registrada: " + optionalPerson.get().toString());
+			System.out.println("Última persona registrada: " + optionalPerson.get().toString());
 		}
 	}
 
 	@Transactional(readOnly = true)
 	public void whereIn(){
-		System.out.println("---------------Obteniendo lista de personas segun ciertas ids---------------");
+		System.out.println("---------------Obteniendo lista de personas según ciertas ids---------------");
 
 		List<Person> persons = repository.getPersonByIds(Arrays.asList(1L,3L,5L));
 		persons.forEach(System.out::println);

@@ -2,6 +2,7 @@ package com.joaquin.curso.springboot.jpa.springbootjpa.repositories;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.joaquin.curso.springboot.jpa.springbootjpa.dto.PersonDto;
 import com.joaquin.curso.springboot.jpa.springbootjpa.entities.Person;
@@ -9,13 +10,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-
+@Repository
 public interface IPersonRepository extends CrudRepository<Person, Long> { //Se pone el tipo de la tabla que vamos a manejar, y el tipo de dato de la clave primaria
 
     List<Person> findByProgrammingLanguage(String programmingLanguage); //Es para hacer otro filtro no es necesario agregar lógica con poner el nombre de esta manera es suficiente el findBy es una palabra clave
 
     @Query("select p from Person p where p.programmingLanguage=?1 and p.name=?2") //Se pone =?1 para que sea igual al primer parámetro, y si se pone un segundo se pone and parámetro=?2
-    List<Person> buscarByProgrammingLanguage(String programmingLanguage, String name); //De esta manera si no se usa la palabra clave, cuando lo ejecutamos tenemos que ponerle la anotación @Query y la consulta no tiene que se de bdd sino de jpa
+    List<Person> buscarByProgrammingLanguage(String programmingLanguage, String name); //De esta manera si no se usa la palabra clave, cuando lo ejecutamos tenemos que ponerle la anotación @Query y la consulta no tiene que ser de bdd sino de jpa
     List<Person> findByProgrammingLanguageAndName(String programmingLanguage, String name);
 
     @Query("select p.name, p.programmingLanguage from Person p")
@@ -42,7 +43,7 @@ public interface IPersonRepository extends CrudRepository<Person, Long> { //Se p
     @Query("select p.id from Person p where p.id=?1")
     Long getIdById(Long id);
 
-    @Query("select concat(p.name,' ', p.lastname) as fullname from Person p where p.id=?1") //Se pueden cocatenar Strings
+    @Query("select concat(p.name,' ', p.lastname) as fullname from Person p where p.id=?1") //Se pueden concatenar Strings
     String getFullNameById(Long id);
 
     @Query("select p.id, p.name, p.lastname, p.programmingLanguage from Person p where p.id=?1")
@@ -66,7 +67,7 @@ public interface IPersonRepository extends CrudRepository<Person, Long> { //Se p
     Long findAllProgrammingLanguagueCount();
 
 
-    @Query("select p.name || ' ' || p.lastname from Person p ") //Se pueden cocatenar Stringscon el ||
+    @Query("select p.name || ' ' || p.lastname from Person p ") //Se pueden concatenar Strings con el ||
     List<String> findAllFullNameConcat();
 
     @Query("select upper(p.name || ' ' || p.lastname) from Person p ") //Letras mayúsculas
@@ -75,22 +76,22 @@ public interface IPersonRepository extends CrudRepository<Person, Long> { //Se p
     @Query("select lower(p.name || ' ' || p.lastname) from Person p ") //Letras minúsculas
     List<String> findAllFullNameConcatLower();
 
-    @Query("select p from Person p where p.id between 2 and 5 order by p.name asc, p.lastname desc") //BETWEEN mostrar entre 2 valores, además el order by para tener un orden a la hora de tener los datos según los distintos parámetros, primero los principales y despues en caso de repetición
+    @Query("select p from Person p where p.id between 2 and 5 order by p.name asc, p.lastname desc") //BETWEEN mostrar entre 2 valores, además el order by para tener un orden a la hora de tener los datos según los distintos parámetros, primero los principales y después en caso de repetición
     List<Person> findAllBeweenId();
 
     @Query("select p from Person p where p.name between 'J' and 'P' order by p.name") //Entre los que empiezan con esas letras
-    List<Person> findAllBeweenName(); //Se puede hacer también sin el query poniendo findByparametroBetween(parámetro 1, parametro 2)
-    //Ejemplo de función con palabra claves findByIdBetweenOrderByIdDescLastnameAsc
+    List<Person> findAllBeweenName(); //Se puede hacer también sin el query poniendo findByparametroBetween(parámetro 1, parámetro 2)
+    //Ejemplo de función con palabras clave findByIdBetweenOrderByIdDescLastnameAsc
 
     //Funciones de agregación
 
     @Query("select count(p.id) from Person p") //Contar cantidad de algo
     Long getTotalPersons();
 
-    @Query("select min(p.id) from Person p") //Saber el mínimo de un campo numerico
+    @Query("select min(p.id) from Person p") //Saber el mínimo de un campo numérico
     Long getMinPersonId();
 
-    @Query("select max(p.id) from Person p") //Saber el máximo de un campo numerico
+    @Query("select max(p.id) from Person p") //Saber el máximo de un campo numérico
     Long getMaxPersonId();
 
     @Query("select p.name, length(p.name) from Person p") //Para saber la longitud de cada nombre
@@ -114,6 +115,6 @@ public interface IPersonRepository extends CrudRepository<Person, Long> { //Se p
 
     //Where in, se usa para buscar un conjunto de valores 
 
-    @Query("select p from Person p where p.id in ?1") //Para que sean distinto a los valores ingresados en vez de poner in se pone not in
+    @Query("select p from Person p where p.id in ?1") //Para que sean distintos a los valores ingresados en vez de poner in se pone not in
     public List<Person> getPersonByIds(List<Long> ids);
 } 

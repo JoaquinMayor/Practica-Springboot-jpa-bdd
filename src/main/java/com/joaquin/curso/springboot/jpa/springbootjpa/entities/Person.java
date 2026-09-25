@@ -10,8 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity //Determina que es una clase de persistencia para que lo maneje hibernate y jpa
-@Table(name = "persons") //Se pone para determinar de que tabla lo sacamos los datos, si no se pone por defecto va a ser con el nombre del objeto
-public class Person { //Jpa usa el contructor vacío para crear la instancia, así que siempre hay que tenerlo, pero igual podemos tener contructores con parámetros
+@Table(name = "persons") //Se pone para determinar de qué tabla lo sacamos los datos, si no se pone por defecto va a ser con el nombre del objeto
+public class Person { //Jpa usa el constructor vacío para crear la instancia, así que siempre hay que tenerlo, pero igual podemos tener constructores con parámetros
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Identity para que lo genere de manera autoincremental
